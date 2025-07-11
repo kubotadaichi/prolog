@@ -28,7 +28,17 @@ class PrologTransformer(Transformer):
         return Rule(head=head, body=body)
     
     def query(self, items):
-        return Query(goals=items[0])
+        goals = items[0]
+        vars_in_query = set()
+        def collect_vars(term):
+            if isinstance(term, Term) and term.is_variable:
+                vars_in_query.add(term.value)
+        
+        for predicate in goals:
+            for arg in predicate.args:
+                collect_vars(arg)
+
+        return Query(goals=items[0], variables=list(vars_in_query))
 
     def statement(self, items):
         return items[0]

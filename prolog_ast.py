@@ -23,3 +23,4 @@ class Rule:
 @dataclass
 class Query:
     goals: List[Predicate]
+    variables: List[str]
