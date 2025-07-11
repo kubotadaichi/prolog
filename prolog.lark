@@ -1,0 +1,26 @@
+start: statement+
+
+statement:  fact "."
+        |   rule "."
+        |   query "."
+
+fact: predicate
+
+rule: predicate ":-" predicate_list
+
+query: "?-" predicate_list
+
+predicate_list: predicate ("," predicate)*
+
+predicate: NAME "(" term_list ")"
+
+term_list: term ("," term)*
+
+term: VARIABLE -> variable
+    | NAME     -> atom
+
+NAME: /[a-z][a-zA-Z0-9_]*/
+VARIABLE: /[A-Z_][a-zA-Z0-9_]*/
+
+%import common.WS
+%ignore WS
