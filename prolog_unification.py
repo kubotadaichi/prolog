@@ -34,3 +34,14 @@ def unify_predicates(p1: Predicate, p2: Predicate, subst: dict) -> Union[dict, N
         if subst is None:
             return None
     return subst
+
+def resolve(term: Term, subst: dict) -> Term:
+    """
+    Resolve a term against a substitution.
+    
+    TODO:
+        - Detect and prevent infinite recursive bindings.
+    """
+    while term.is_variable and term.value in subst:
+        term = subst[term.value]
+    return term
