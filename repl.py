@@ -3,6 +3,7 @@ from prolog_parser import parse_program
 from prolog_knowledge_base import KnowledgeBase
 from prolog_evaluator import QueryEvaluator
 from prolog_ast import Query, Term
+from prolog_unification import resolve
 
 def build_kb_from_file(path: str) -> KnowledgeBase:
     with open(path, "r") as f:
@@ -43,8 +44,16 @@ def repl(kb: KnowledgeBase):
                 try:
                     while True:
                         solution = next(solutions)
-                        bindings = [f"{var} = {val.value}" for var, val in solution.items()]
-                        print("".join(bindings) if bindings else "true", end=" ")
+                        filtered = {
+                            var : resolve(val, solution) for var, val in solution.items()
+                            if var in stmt.variables
+                        }
+                        if not filtered:
+                            print("true", end=" ")
+                            continue
+
+                        bindings = [f"{var} = {val.value}" for var, val in filtered.items()]
+                        print("".join(bindings), end=" ")
                         if input() != ";":
                             break
                 except StopIteration:
