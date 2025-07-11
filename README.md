@@ -19,9 +19,11 @@ source .venv/bin/activate
 ```prolog
 parent(john, mary).
 parent(john, anne).
+parent(mary, alice).
 ancestor(X, Y) :- parent(X, Y).
 ancestor(X, Y) :- parent(X, Z), ancestor(Z, Y).
 ```
+
 ### 2. Start the REPL
 ```bash
 uv run repl.py input.pl
@@ -30,3 +32,39 @@ Welcome to the Prolog REPL! (type 'halt.' to exit)
 ```
 ### 3. Run queries
 
+```bash
+| ?- parent(john, X).
+X = mary ;
+X = anne ;
+no
+| ?- ancestor(john, Y).
+Y = mary ;
+Y = anne ;
+Y = alice ;
+no
+| ?- halt.
+Exiting REPL.
+```
+
+## 🧠 Features
+* ✅ Facts and rules
+
+* ✅ Variable unification
+
+* ✅ Recursive backtracking
+
+* ✅ Interactive REPL with support for ; to get multiple answers
+
+## 🚧 Limitations
+* ❌ No support for is/2, arithmetic, or built-in predicates
+
+* ❌ No list matching ([H|T])
+
+* ❌ No cut operator (!)
+
+* ❌ No module system
+
+## License
+
+This project is licensed under the MIT License.  
+See the [LICENSE](./LICENSE) file for details.
