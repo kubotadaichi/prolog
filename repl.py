@@ -37,9 +37,6 @@ def repl(kb: KnowledgeBase):
                     print("Only queries are allowed in REPL")
                     continue
 
-                # for solution in evaluator.solve(stmt.goals, {}):
-                #     bindings = [f"{var} = {val.value}" for var, val in solution.items()]
-                #     print("".join(bindings) if bindings else "true")
                 solutions = evaluator.solve(stmt.goals, {})
                 try:
                     while True:

@@ -45,3 +45,7 @@ class PrologTransformer(Transformer):
     
     def start(self, items):
         return items
+    
+    def cut(self, _):
+        from prolog_ast import Predicate
+        return Predicate(name="!", args=[])

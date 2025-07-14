@@ -6,13 +6,24 @@ from prolog_unification import unify_predicates
 class QueryEvaluator:
     def __init__(self, kb: KnowledgeBase):
         self.kb = kb
+        self.cut_triggered = False
 
     def solve(self, goals: list[Predicate], subst: Dict[str, Term]) -> Iterator[Dict[str, Term]]:
+        if self.cut_triggered:
+            # print("Cut triggered, stopping further solutions.")
+            return
+
         if not goals:
             yield subst
             return 
         
         goal, *rest_goals = goals
+
+        if goal.name == "!":
+            # print("Cut encountered, stopping further solutions.")
+            self.cut_triggered = True
+            yield subst
+            return 
 
         for stmt in self.kb.get_candidates(goal):
             if isinstance(stmt, Fact):
