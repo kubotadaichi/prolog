@@ -12,7 +12,8 @@ query: "?-" predicate_list
 
 predicate_list: predicate ("," predicate)*
 
-predicate: NAME "(" term_list ")"
+predicate:  "!"  -> cut
+            | NAME "(" term_list ")"
 
 term_list: term ("," term)*
 

@@ -55,12 +55,12 @@ Exiting REPL.
 
 * ✅ Interactive REPL with support for ; to get multiple answers
 
+* ✅ cut operator (!)
+
 ## 🚧 Limitations
 * ❌ No support for is/2, arithmetic, or built-in predicates
 
 * ❌ No list matching ([H|T])
-
-* ❌ No cut operator (!)
 
 * ❌ No module system
 
