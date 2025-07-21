@@ -49,7 +49,7 @@ def repl(kb: KnowledgeBase):
                             print("true", end=" ")
                             continue
 
-                        bindings = [f"{var} = {val.value}" for var, val in filtered.items()]
+                        bindings = [f"{var} = {val.value} " for var, val in filtered.items()]
                         print("".join(bindings), end=" ")
                         if input() != ";":
                             break
